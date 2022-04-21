@@ -986,6 +986,9 @@ extern "C" {
         result: *mut *mut passwd,
     ) -> ::c_int;
 
+    // serenity.h
+    pub fn anon_create(size: ::size_t, options: ::c_int) -> ::c_int;
+
     // signal.h
     pub fn pthread_sigmask(
         how: ::c_int,
@@ -1030,6 +1033,8 @@ extern "C" {
         addr: *mut ::sockaddr,
         addrlen: *mut ::socklen_t,
     ) -> ::ssize_t;
+    pub fn sendfd(sockfd: ::c_int, fd: ::c_int) -> ::c_int;
+    pub fn recvfd(sockfd: ::c_int, options: ::c_int) -> ::c_int;
 
     // sys/stat.h
     pub fn futimens(fd: ::c_int, times: *const ::timespec) -> ::c_int;
