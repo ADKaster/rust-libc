@@ -386,6 +386,9 @@ cfg_if! {
         #[cfg_attr(feature = "rustc-dep-of-std",
                    link(name = "c", cfg(not(target_feature = "crt-static"))))]
         extern {}
+    } else if #[cfg(target_os = "serenity")] {
+        #[link(name = "c")]
+        extern {}
     } else {
         #[link(name = "c")]
         #[link(name = "m")]
