@@ -664,16 +664,30 @@ pub const PROT_READ: ::c_int = 0x0001;
 pub const PROT_WRITE: ::c_int = 0x0002;
 pub const PROT_EXEC: ::c_int = 0x0004;
 
+pub const MAP_FILE: ::c_int = 0x0000;
 pub const MAP_SHARED: ::c_int = 0x0001;
 pub const MAP_PRIVATE: ::c_int = 0x0002;
 pub const MAP_ANON: ::c_int = 0x0020;
 pub const MAP_ANONYMOUS: ::c_int = MAP_ANON;
 pub const MAP_FIXED: ::c_int = 0x0010;
+pub const MAP_STACK: ::c_int = 0x0040;
+pub const MAP_NORESERVE: ::c_int = 0x0080;
+pub const MAP_RANDOMIZED: ::c_int = 0x0100;
+pub const MAP_PURGEABLE: ::c_int = 0x0200;
+pub const MAP_FIXED_NOREPLACE: ::c_int = 0x0400;
 pub const MAP_FAILED: *mut ::c_void = !0 as _;
 
-pub const MS_ASYNC: ::c_int = 0x0001;
-pub const MS_INVALIDATE: ::c_int = 0x0002;
-pub const MS_SYNC: ::c_int = 0x0004;
+pub const MADV_NORMAL: ::c_int = 0x0000;
+pub const MADV_SET_VOLATILE: ::c_int = 0x0001;
+pub const MADV_SET_NONVOLATILE: ::c_int = 0x0002;
+pub const MADV_DONTNEED: ::c_int = 0x0003;
+pub const MADV_WILLNEED: ::c_int = 0x0004;
+pub const MADV_SEQUENTIAL: ::c_int = 0x0005;
+pub const MADV_RANDOM: ::c_int = 0x0006;
+
+pub const MS_SYNC: ::c_int = 0x0001;
+pub const MS_ASYNC: ::c_int = 0x0002;
+pub const MS_INVALIDATE: ::c_int = 0x0004;
 
 // sys/select.h
 pub const FD_SETSIZE: usize = 1024;
@@ -1077,8 +1091,11 @@ extern "C" {
     pub fn ioctl(fd: ::c_int, request: ::c_ulong, ...) -> ::c_int;
 
     // sys/mman.h
+    pub fn mremap(old_addr: *mut ::c_void, old_size: ::size_t, new_size: ::size_t, flags: ::c_int) -> ::c_int;
     pub fn msync(addr: *mut ::c_void, len: ::size_t, flags: ::c_int) -> ::c_int;
     pub fn mprotect(addr: *mut ::c_void, len: ::size_t, prot: ::c_int) -> ::c_int;
+    pub fn madvise(addr: *mut ::c_void, len: ::size_t, advice: ::c_int) -> ::c_int;
+    pub fn posix_madvise(addr: *mut ::c_void, len: ::size_t, advice: ::c_int) -> ::c_int;
     pub fn shm_open(name: *const c_char, oflag: ::c_int, mode: mode_t) -> ::c_int;
     pub fn shm_unlink(name: *const ::c_char) -> ::c_int;
 
