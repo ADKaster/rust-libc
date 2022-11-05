@@ -640,6 +640,9 @@ pub const S_IROTH: u16 = 0o0_004;
 pub const S_IWOTH: u16 = 0o0_002;
 pub const S_IXOTH: u16 = 0o0_001;
 
+pub const UTIME_OMIT: c_long = -1;
+pub const UTIME_NOW: c_long = -2;
+
 // stdlib.h
 pub const EXIT_SUCCESS: ::c_int = 0;
 pub const EXIT_FAILURE: ::c_int = 1;
